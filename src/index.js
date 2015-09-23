@@ -1,4 +1,4 @@
 import React from 'react';
-import { App } from './App';
+import { Pwg } from './Pwg';
 
-React.render(<App />, document.getElementById('root'));
+React.render(<Pwg />, document.getElementById('root'));
