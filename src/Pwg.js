@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Pwform } from './PWForm';
 import { Pwresult } from './PWResult';
 
+import './styles/style.scss';
+
 export class Pwg extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ export class Pwg extends Component {
 
   render() {
     return (
-      <div>
+      <div className="pwg_selected-service-container">
         { this.state.isPasswortGenerated ?
           <Pwresult password={ this.state.password } showPasswordForm={ this.showPasswordForm.bind(this) }/>
         : <Pwform passwortGeneratedToggle={ this.showPassword.bind(this) } /> }
