@@ -16,7 +16,7 @@ export class Pwg extends Component {
   showPasswordForm(){
     var isPasswortGenerated = this.state.isPasswortGenerated;
     this.setState({
-      password: "",
+      password: '',
       isPasswortGenerated: !isPasswortGenerated
     });
   }
@@ -34,7 +34,7 @@ export class Pwg extends Component {
       <div className="pwg_selected-service-container">
         { this.state.isPasswortGenerated ?
           <Pwresult password={ this.state.password } showPasswordForm={ this.showPasswordForm.bind(this) }/>
-        : <Pwform passwortGeneratedToggle={ this.showPassword.bind(this) } /> }
+        : <Pwform passwordGenerated={ this.showPassword.bind(this) } /> }
       </div>
     );
   }

@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import generatePassword from './generatePassword';
 import { Errormessage } from './Errormessage';
+import { Autocomplete } from './Autocomplete';
 
 export class Pwform extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      serviceName: "",
-      salt: ""
-    }
+    this.state = {}
+    this.serviceName = '';
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault();
-    var serviceName = React.findDOMNode(this.refs.serviceName).value.trim();
+  updateServiceName(serviceName) {
+    this.serviceName = serviceName.trim();
+  }
+
+  focusSalt() {
+    React.findDOMNode(this.refs.salt).focus();
+  }
+
+  getPassword() {
+    var serviceName = this.serviceName;
     var salt = React.findDOMNode(this.refs.salt).value.trim();
     var errorMessage;
     try {
@@ -22,7 +28,7 @@ export class Pwform extends Component {
       errorMessage = error.message
     }
     if (!errorMessage) {
-      var password = generatePassword(serviceName, salt);
+      this.props.passwordGenerated(password);
     } else {
       this.setState({
         errorMessage: errorMessage
@@ -30,20 +36,27 @@ export class Pwform extends Component {
     }
   }
 
-  componentWillUnmount(nextProps, nextState) {
-    console.log(this.state)
+  saltKeyDownHandler(event) {
+    if (event.keyCode === 13) {
+      this.getPassword()
+    }
   }
 
   render() {
     return(
-      <form onSubmit={ this.handleFormSubmit.bind(this) } >
+      <div>
         <Errormessage errorMessage={ this.state.errorMessage }/>
-        <input type="text" className="form-control pwg_input-service " value={ this.serviceName } placeholder="Service Name" ref="serviceName" />
-        <input type="password" className="form-control pwg_input-phrase" placeholder="Secret Phrase" value={ this.salt }  ref="salt" />
+        <Autocomplete onInput={ this.updateServiceName.bind(this) } onBlur={ this.focusSalt.bind(this) }  />
+        <input type="text"
+               className="form-control pwg_input-phrase"
+               placeholder="Secret Phrase"
+               value={ this.salt }
+               ref="salt"
+               onKeyDown={ this.saltKeyDownHandler.bind(this) } />
         <div className="text-center">
-          <button type="submit" className="btn">Go!</button>
+          <button type="submit" className="btn" onClick={ this.getPassword.bind(this) }>Go!</button>
         </div>
-      </form>
+      </div>
     )
   }
 }
