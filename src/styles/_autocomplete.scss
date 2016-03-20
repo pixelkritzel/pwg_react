@@ -1,0 +1,36 @@
+.autocomplete {
+  position: relative;
+  margin-bottom: $line-height-computed/2;
+}
+
+ul.autocomplete-dropdown {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding: 3% 5%;
+
+    &:not(:last-child) {
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: .5%;
+        height: 1px;
+        width: 99%;
+        background-color: #ccc;
+      }
+    }
+    
+    &.autocomplete-highlight {
+      background-color: #3a33d1;
+      color: white;
+    }
+  }
+}
