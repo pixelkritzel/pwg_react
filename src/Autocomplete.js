@@ -114,7 +114,7 @@ export class Autocomplete extends Component {
         <div className="input-group">
           <input type="text"
                  className="form-control autocomplete-service-name-input"
-                 value={ this.props.serviceName }
+                 defaultValue={ this.props.serviceName }
                  placeholder="Service Name"
                  ref="inputField"
                  onInput={ this.exportValue.bind(this) }

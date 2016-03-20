@@ -28,7 +28,7 @@
         }
       }
 
-      &.autocomplete-highlight {
+      &.autocomplete-highlight, &:hover {
         background-color: #3a33d1;
         color: white;
       }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Pwform } from './PWForm';
 import { Pwresult } from './PWResult';
+import { ServiceList } from './ServiceList';
 
 import './styles/style.scss';
 
@@ -9,6 +10,8 @@ export class Pwg extends Component {
     super(props);
     this.state = {
       isPasswortGenerated: false,
+      displayPwg: true,
+      displayServiceList: false,
       password: ''
     }
   }
@@ -29,13 +32,33 @@ export class Pwg extends Component {
     });
   }
 
+  switchView(event) {
+    event.preventDefault();
+    const newState = {
+      displayPwg: !this.state.displayPwg,
+      displayServiceList: !this.state.displayServiceList
+    }
+    this.setState(newState);
+  }
+
   render() {
+    let ActiveComponent
+    if (this.state.displayPwg) {
+      ActiveComponent = this.state.isPasswortGenerated ?
+            <Pwresult password={ this.state.password } showPasswordForm={ this.showPasswordForm.bind(this) }/>
+          : <Pwform passwordGenerated={ this.showPassword.bind(this) } />
+    }
+    if (this.state.displayServiceList) {
+      ActiveComponent = <ServiceList />
+    }
     return (
       <div className="pwg_selected-service-container">
-        { this.state.isPasswortGenerated ?
-          <Pwresult password={ this.state.password } showPasswordForm={ this.showPasswordForm.bind(this) }/>
-        : <Pwform passwordGenerated={ this.showPassword.bind(this) } /> }
+        { ActiveComponent }
+        <a href="#" onClick={ this.switchView.bind(this) } >
+          { this.state.displayPwg ? 'Show Service List' : 'Show PWG'}
+        </a>
       </div>
     );
+
   }
 }
