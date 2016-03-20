@@ -47,8 +47,8 @@ export class Pwform extends Component {
     return(
       <div>
         <Errormessage errorMessage={ this.state.errorMessage }/>
-        <Autocomplete onInput={ this.updateServiceName.bind(this) } onBlur={ this.focusSalt.bind(this) } serviceName={this.state.serviceName}  />
-        <input type="text"
+        <Autocomplete updateServiceName={ this.updateServiceName.bind(this) } onBlur={ this.focusSalt.bind(this) } serviceName={this.state.serviceName}  />
+        <input type="password"
                className="form-control pwg_input-phrase"
                placeholder="Secret Phrase"
                value={ this.salt }

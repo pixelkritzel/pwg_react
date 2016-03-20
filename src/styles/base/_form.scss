@@ -32,5 +32,22 @@
     opacity: 1; // iOS fix for unreadable disabled content
   }
 
-  // [converter] extracted textarea& to textarea.form-control
+  .input-group & {
+    float: left;
+
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.input-group {
+  @extend .clearfix;
 }

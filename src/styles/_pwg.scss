@@ -41,15 +41,3 @@ ul.pwg_filtered-services {
 .pwg_generate-button-container {
   text-align: center;
 }
-
-.pwg_filtered-service--name {
-  width: 87%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: $line-height-computed/2;
-}
-
-.pwg_filtered-service--remove {
-  width: 10%;
-}

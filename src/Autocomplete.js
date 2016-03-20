@@ -1,45 +1,34 @@
 import React, { Component } from 'react';
-
-const items = [{
-  title: 'abc'
-},{
-  title: 'bcd'
-},{
-  title: 'cde'
-},{
-  title: 'def'
-},{
-  title: 'efg'
-}]
+import services from './services';
 
 export class Autocomplete extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: items
+      services: services.getServices()
     };
   }
 
   exportValue(event) {
     const value = React.findDOMNode(this.refs.inputField).value;
-    this.props.onInput(value);
+    this.props.updateServiceName(value);
   }
 
   showList() {
     this.setState({ shouldListRender: true });
   }
 
-  hideList() {
+  hideList(event) {
     this.setState({
       shouldListRender: false
     });
   }
 
   navigate(event) {
-    const items = this.state.items;
-    const newState = {items: items};
-    const highlightIndex = items.findIndex((item) => item.highlight)
-    highlightIndex !== -1 ? items[highlightIndex].highlight = false : null;
+    const services = this.state.services;
+    const newState = {services: services};
+    const highlightIndex = services.findIndex((item) => item.highlight)
+    highlightIndex !== -1 ? services[highlightIndex].highlight = false : null;
     // escape
     if (event.keyCode === 27) {
       this.hideList();
@@ -48,9 +37,9 @@ export class Autocomplete extends Component {
     if (event.keyCode === 13) {
       const input = React.findDOMNode(this.refs.inputField);
       if (highlightIndex !== -1) {
-        const serviceName = items[highlightIndex].title;
+        const serviceName = services[highlightIndex].name;
         input.value = serviceName;
-        this.props.onInput(serviceName);
+        this.props.updateServiceName(serviceName);
       }
       input.blur();
       this.props.onBlur();
@@ -58,21 +47,21 @@ export class Autocomplete extends Component {
     // arrow up
     if (event.keyCode === 38) {
       if (highlightIndex !== 0 && highlightIndex !== -1) {
-        items[highlightIndex - 1].highlight = true;
-        this.props.onInput(items[highlightIndex - 1].title);
+        services[highlightIndex - 1].highlight = true;
+        this.props.updateServiceName(services[highlightIndex - 1].name);
       } else {
-        items[items.length - 1].highlight = true;
-        this.props.onInput(items[items.length - 1].title);
+        services[services.length - 1].highlight = true;
+        this.props.updateServiceName(services[services.length - 1].name);
       }
     }
     // arrow down
     else if (event.keyCode === 40) {
-      if(highlightIndex !== items.length - 1 && highlightIndex !== -1) {
-        items[highlightIndex + 1].highlight = true;
-        this.props.onInput(items[highlightIndex + 1].title);
+      if(highlightIndex !== services.length - 1 && highlightIndex !== -1) {
+        services[highlightIndex + 1].highlight = true;
+        this.props.updateServiceName(services[highlightIndex + 1].name);
       } else {
-        items[0].highlight = true;
-        this.props.onInput(items[0].title);
+        services[0].highlight = true;
+        this.props.updateServiceName(services[0].name);
       }
     }
     this.setState(newState);
@@ -82,15 +71,37 @@ export class Autocomplete extends Component {
     // don't filter list if kex event was arrow up or down
     if (event.keyCode === 38 || event.keyCode === 40) return;
     const filterText = React.findDOMNode(this.refs.inputField).value.trim();
-    const filteredItems = items.filter((item) => item.title.includes(filterText));
-    this.setState({ items: filteredItems });
+    const filteredItems = services.getServices().filter((item) => item.name.includes(filterText));
+    this.setState({ services: filteredItems });
+  }
+
+  setServiceName(event) {
+    this.props.updateServiceName(event.target.innerText);
+  }
+
+  addServiceName() {
+    let newServices;
+    try {
+      newServices = services.addService(this.props.serviceName)
+    } catch(error) {
+      alert(error);
+    }
+    if (newServices) {
+      this.setState({
+        services: newServices
+      });
+    }
+
   }
 
   renderList() {
     return (
       <ul className="autocomplete-dropdown">
-        { this.state.items.map((item) => <li className={ item.highlight ? 'autocomplete-highlight' : null }>
-          { item.title }
+        { this.state.services.map((item, index) =>
+          <li className={ item.highlight ? 'autocomplete-highlight' : null }
+              onMouseDown={ this.setServiceName.bind(this) }
+              onTouchStart={ this.setServiceName.bind(this) }>
+            { item.name }
           </li> )
         }
       </ul>
@@ -100,18 +111,23 @@ export class Autocomplete extends Component {
   render() {
     return (
       <div className="autocomplete">
-        <input type="text"
-               className="form-control"
-               value={ this.props.serviceName }
-               placeholder="Service Name"
-               ref="inputField"
-               onInput={ this.exportValue.bind(this) }
-               onFocus={ this.showList.bind(this) }
-               onClick={ this.showList.bind(this) }
-               onBlur={ this.hideList.bind(this) }
-               onKeyDown={ this.navigate.bind(this) }
-               onKeyUp={ this.filterItems.bind(this) }
-               />
+        <div className="input-group">
+          <input type="text"
+                 className="form-control autocomplete-service-name-input"
+                 value={ this.props.serviceName }
+                 placeholder="Service Name"
+                 ref="inputField"
+                 onInput={ this.exportValue.bind(this) }
+                 onFocus={ this.showList.bind(this) }
+                 onClick={ this.showList.bind(this) }
+                 onBlur={ this.hideList.bind(this) }
+                 onKeyDown={ this.navigate.bind(this) }
+                 onKeyUp={ this.filterItems.bind(this) }
+                 />
+          <button className="form-control autocomplete-add-service-name"
+                  type="button"
+                  onClick={ this.addServiceName.bind(this) } >+</button>
+        </div>
         { this.state.shouldListRender ? this.renderList() : void 0 }
       </div>
     )
