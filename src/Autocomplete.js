@@ -36,7 +36,8 @@ export class Autocomplete extends Component {
   }
 
   navigate(event) {
-    let items = this.state.items;
+    const items = this.state.items;
+    const newState = {items: items};
     const highlightIndex = items.findIndex((item) => item.highlight)
     highlightIndex !== -1 ? items[highlightIndex].highlight = false : null;
     // escape
@@ -56,20 +57,30 @@ export class Autocomplete extends Component {
     }
     // arrow up
     if (event.keyCode === 38) {
-      highlightIndex !== 0 && highlightIndex !== -1 ?
-        items[highlightIndex - 1].highlight = true
-      : items[items.length - 1].highlight = true;
+      if (highlightIndex !== 0 && highlightIndex !== -1) {
+        items[highlightIndex - 1].highlight = true;
+        this.props.onInput(items[highlightIndex - 1].title);
+      } else {
+        items[items.length - 1].highlight = true;
+        this.props.onInput(items[items.length - 1].title);
+      }
     }
     // arrow down
     else if (event.keyCode === 40) {
-      highlightIndex !== items.length - 1 && highlightIndex !== -1 ?
-        items[highlightIndex + 1].highlight = true
-      : items[0].highlight = true;
+      if(highlightIndex !== items.length - 1 && highlightIndex !== -1) {
+        items[highlightIndex + 1].highlight = true;
+        this.props.onInput(items[highlightIndex + 1].title);
+      } else {
+        items[0].highlight = true;
+        this.props.onInput(items[0].title);
+      }
     }
-    this.setState({items: items});
+    this.setState(newState);
   }
 
-  filterItems() {
+  filterItems(event) {
+    // don't filter list if kex event was arrow up or down
+    if (event.keyCode === 38 || event.keyCode === 40) return;
     const filterText = React.findDOMNode(this.refs.inputField).value.trim();
     const filteredItems = items.filter((item) => item.title.includes(filterText));
     this.setState({ items: filteredItems });
@@ -77,10 +88,9 @@ export class Autocomplete extends Component {
 
   renderList() {
     return (
-      <ul>
-        { this.state.items.map((item) => <li>
+      <ul className="autocomplete-dropdown">
+        { this.state.items.map((item) => <li className={ item.highlight ? 'autocomplete-highlight' : null }>
           { item.title }
-          { item.highlight ? ' highlight' : null }
           </li> )
         }
       </ul>
@@ -89,10 +99,10 @@ export class Autocomplete extends Component {
 
   render() {
     return (
-      <div>
+      <div className="autocomplete">
         <input type="text"
-               className="form-control pwg_input-service"
-               value={ this.serviceName }
+               className="form-control"
+               value={ this.props.serviceName }
                placeholder="Service Name"
                ref="inputField"
                onInput={ this.exportValue.bind(this) }

@@ -1,3 +1,5 @@
+/* globals btoa */
+
 import CryptoJS from './vendor/Crypto';
 
 var generatePassword = function(serviceName, salt) {

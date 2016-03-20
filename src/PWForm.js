@@ -6,12 +6,13 @@ import { Autocomplete } from './Autocomplete';
 export class Pwform extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
-    this.serviceName = '';
+    this.state = {
+      serviceName: ''
+    }
   }
 
   updateServiceName(serviceName) {
-    this.serviceName = serviceName.trim();
+    this.setState({ serviceName: serviceName.trim() });
   }
 
   focusSalt() {
@@ -19,7 +20,7 @@ export class Pwform extends Component {
   }
 
   getPassword() {
-    var serviceName = this.serviceName;
+    var serviceName = this.state.serviceName;
     var salt = React.findDOMNode(this.refs.salt).value.trim();
     var errorMessage;
     try {
@@ -38,7 +39,7 @@ export class Pwform extends Component {
 
   saltKeyDownHandler(event) {
     if (event.keyCode === 13) {
-      this.getPassword()
+      this.getPassword();
     }
   }
 
@@ -46,7 +47,7 @@ export class Pwform extends Component {
     return(
       <div>
         <Errormessage errorMessage={ this.state.errorMessage }/>
-        <Autocomplete onInput={ this.updateServiceName.bind(this) } onBlur={ this.focusSalt.bind(this) }  />
+        <Autocomplete onInput={ this.updateServiceName.bind(this) } onBlur={ this.focusSalt.bind(this) } serviceName={this.state.serviceName}  />
         <input type="text"
                className="form-control pwg_input-phrase"
                placeholder="Secret Phrase"
