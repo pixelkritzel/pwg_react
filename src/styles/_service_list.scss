@@ -1,0 +1,13 @@
+ul.service-list {
+  @include list-unstyled();
+
+  li {
+    @extend .clearfix;
+    margin-bottom: 1rem;
+
+    .btn {
+      float: right;
+      margin-left: .5rem;
+    }
+  }
+}

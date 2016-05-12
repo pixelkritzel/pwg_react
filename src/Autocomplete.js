@@ -15,7 +15,7 @@ export class Autocomplete extends Component {
   }
 
   showList() {
-    this.setState({ shouldListRender: true });
+    this.setState({ shouldListRender: this.state.services.length > 0 });
   }
 
   hideList(event) {
@@ -38,7 +38,6 @@ export class Autocomplete extends Component {
       const input = React.findDOMNode(this.refs.inputField);
       if (highlightIndex !== -1) {
         const serviceName = services[highlightIndex].name;
-        input.value = serviceName;
         this.props.updateServiceName(serviceName);
       }
       input.blur();
@@ -70,8 +69,8 @@ export class Autocomplete extends Component {
   filterItems(event) {
     // don't filter list if kex event was arrow up or down
     if (event.keyCode === 38 || event.keyCode === 40) return;
-    const filterText = React.findDOMNode(this.refs.inputField).value.trim();
-    const filteredItems = services.getServices().filter((item) => item.name.includes(filterText));
+    const filterText = React.findDOMNode(this.refs.inputField).value.trim().toLowerCase();
+    const filteredItems = services.getServices().filter((item) => item.name.toLowerCase().includes(filterText));
     this.setState({ services: filteredItems });
   }
 
@@ -114,7 +113,7 @@ export class Autocomplete extends Component {
         <div className="input-group">
           <input type="text"
                  className="form-control autocomplete-service-name-input"
-                 defaultValue={ this.props.serviceName }
+                 value={ this.props.serviceName }
                  placeholder="Service Name"
                  ref="inputField"
                  onInput={ this.exportValue.bind(this) }

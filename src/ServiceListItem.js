@@ -14,9 +14,9 @@ export class ServiceListItem extends Component {
     
     render() {
         return(
-            <li>
+            <li className="service-list_item">
+                <button type="button" className="btn" onClick={ this.deleteService.bind(this) } >Delete</button>
                 <EditableText text={ this.props.name } textChanged={ this.updateServiceName.bind(this) } />
-                <button type="button" onClick={ this.deleteService.bind(this) } >Delete</button>
             </li>
         )
     }

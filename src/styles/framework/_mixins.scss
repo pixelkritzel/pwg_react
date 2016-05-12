@@ -103,3 +103,9 @@
   $opacity-ie: ($opacity * 100);
   filter: #{alpha(opacity=$opacity-ie)};
 }
+
+@mixin list-unstyled() {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

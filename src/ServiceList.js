@@ -24,7 +24,7 @@ export class ServiceList extends Component {
     render() {
         this.state.services.forEach( service => console.log(service.name));
         return(
-            <ul>
+            <ul className="service-list">
                 { this.state.services.map(service =>
                     <ServiceListItem name={ service.name } key={service.name} />
                 ) }

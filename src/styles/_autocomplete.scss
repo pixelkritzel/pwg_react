@@ -3,13 +3,11 @@
   margin-bottom: $line-height-computed/2;
 
   ul.autocomplete-dropdown {
+    @include list-unstyled();
     position: absolute;
-    margin: 0;
-    padding: 0;
     width: 100%;
     background-color: white;
     border: 1px solid #ccc;
-    list-style: none;
 
     li {
       position: relative;

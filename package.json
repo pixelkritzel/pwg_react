@@ -41,6 +41,7 @@
     "webpack-hot-middleware": "^2.0.0"
   },
   "dependencies": {
+    "clipboard": "^1.5.9",
     "react": "^0.13.0",
     "style-loader": "^0.12.4"
   }

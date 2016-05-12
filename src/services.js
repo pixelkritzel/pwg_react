@@ -5,7 +5,7 @@ class Storage {
     }
 
     set(services) {
-        localStorage.setItem('pwg', JSON.stringify(services))
+        localStorage.setItem('pwg', JSON.stringify(services));
     }
 }
 

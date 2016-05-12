@@ -54,7 +54,7 @@ export class EditableText extends Component {
         const TextMode =
             <span>
                 {this.state.text}
-                <button type="button" onClick={ this.enterEditMode.bind(this) }>Edit</button>
+                <button type="button" className="btn" onClick={ this.enterEditMode.bind(this) }>Edit</button>
             </span>
         const EditMode =
             <span>
@@ -64,8 +64,8 @@ export class EditableText extends Component {
                        defaultValue={ this.state.text }
                        ref="inputElement"
                        onKeyDown={ this.keyDown.bind(this) } />
-                <button type="button" onClick={ this.apply.bind(this) }>Apply</button>
-                <button type="button" onClick={ this.leaveEditMode.bind(this) }>Cancel</button>
+                <button type="button" className="btn" onClick={ this.leaveEditMode.bind(this) }>Cancel</button>
+                <button type="button" className="btn" onClick={ this.apply.bind(this) }>Apply</button>
             </span>
         return(
             <span>
