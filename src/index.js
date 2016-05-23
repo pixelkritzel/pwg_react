@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Pwg } from './Pwg';
 
-React.render(<Pwg />, document.getElementById('root'));
+import '!style!css!sass!./scss/style.scss';
+
+ReactDOM.render(<Pwg />, document.getElementById('root'));

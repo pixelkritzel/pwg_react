@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import services from './services';
 
 export class Autocomplete extends Component {
@@ -10,7 +11,7 @@ export class Autocomplete extends Component {
   }
 
   exportValue(event) {
-    const value = React.findDOMNode(this.refs.inputField).value;
+    const value = ReactDOM.findDOMNode(this.refs.inputField).value;
     this.props.updateServiceName(value);
   }
 
@@ -35,7 +36,7 @@ export class Autocomplete extends Component {
     }
     // enter
     if (event.keyCode === 13) {
-      const input = React.findDOMNode(this.refs.inputField);
+      const input = ReactDOM.findDOMNode(this.refs.inputField);
       if (highlightIndex !== -1) {
         const serviceName = services[highlightIndex].name;
         this.props.updateServiceName(serviceName);
@@ -69,7 +70,7 @@ export class Autocomplete extends Component {
   filterItems(event) {
     // don't filter list if kex event was arrow up or down
     if (event.keyCode === 38 || event.keyCode === 40) return;
-    const filterText = React.findDOMNode(this.refs.inputField).value.trim().toLowerCase();
+    const filterText = ReactDOM.findDOMNode(this.refs.inputField).value.trim().toLowerCase();
     const filteredItems = services.getServices().filter((item) => item.name.toLowerCase().includes(filterText));
     this.setState({ services: filteredItems });
   }
@@ -99,7 +100,9 @@ export class Autocomplete extends Component {
         { this.state.services.map((item, index) =>
           <li className={ item.highlight ? 'autocomplete-highlight' : null }
               onMouseDown={ this.setServiceName.bind(this) }
-              onTouchStart={ this.setServiceName.bind(this) }>
+              onTouchStart={ this.setServiceName.bind(this) }
+              key={ item.name }>
+
             { item.name }
           </li> )
         }

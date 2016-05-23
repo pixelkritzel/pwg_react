@@ -3,7 +3,7 @@ import { EditableText } from './EditableText';
 import services from './services';
 
 export class ServiceListItem extends Component {
-    
+
     updateServiceName(newName, oldName) {
         const newServices = services.updateServiceName(oldName, newName);
     }
@@ -11,7 +11,7 @@ export class ServiceListItem extends Component {
     deleteService() {
         services.deleteService(this.props.name);
     }
-    
+
     render() {
         return(
             <li className="service-list_item">

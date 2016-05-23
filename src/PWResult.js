@@ -1,5 +1,6 @@
 /* globals document alert */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 function copyToClipboard(pwInput) {
     pwInput.select();
@@ -17,11 +18,7 @@ export class Pwresult extends Component {
 
 
   componentDidMount() {
-    copyToClipboard(this.refs.pw.getDOMNode());
-  }
-
-  componentDidMount() {
-    copyToClipboard(this.refs.pw.getDOMNode());
+    copyToClipboard(ReactDOM.findDOMNode(this.refs.pw));
   }
 
   render() {

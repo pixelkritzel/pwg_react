@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import generatePassword from './generatePassword';
 import { Errormessage } from './Errormessage';
 import { Autocomplete } from './Autocomplete';
@@ -16,12 +17,12 @@ export class Pwform extends Component {
   }
 
   focusSalt() {
-    React.findDOMNode(this.refs.salt).focus();
+    ReactDOM.findDOMNode(this.refs.salt).focus();
   }
 
   getPassword() {
     var serviceName = this.state.serviceName;
-    var salt = React.findDOMNode(this.refs.salt).value.trim();
+    var salt = ReactDOM.findDOMNode(this.refs.salt).value.trim();
     var errorMessage;
     try {
       var password = generatePassword(serviceName, salt);

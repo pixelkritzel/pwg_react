@@ -10,7 +10,7 @@ export class ServiceList extends Component {
         }
         this.servicesCallback = services.addCallback( this.updateServiceList.bind(this) );
     }
-    
+
     componentWillUnmount() {
         services.removeCallback(this.servicesCallback);
     }

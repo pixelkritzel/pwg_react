@@ -3,7 +3,7 @@ import { Pwform } from './PWForm';
 import { Pwresult } from './PWResult';
 import { ServiceList } from './ServiceList';
 
-import './styles/style.scss';
+// import './styles/style.scss';
 
 export class Pwg extends Component {
   constructor(props) {

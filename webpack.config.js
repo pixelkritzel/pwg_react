@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'eval',
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-dev-server/client?http://localhost:3000',
     './src/index'
   ],
   output: {
@@ -12,18 +12,14 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [{
-      test: /\.js$/,
+      test: /\.js?$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    },{
-      test: /\.scss$/,
-      loader: 'style!css!sass'
     }]
   }
 };
