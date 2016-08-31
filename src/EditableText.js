@@ -22,7 +22,7 @@ export class EditableText extends Component {
     }
 
     apply() {
-        const newText = this.refs.inputElement.getDOMNode().value;
+        const newText = this.refs.inputElement.value;
         this.setState({
             text: newText,
             editMode: false
@@ -46,7 +46,7 @@ export class EditableText extends Component {
     componentDidUpdate() {
         if (this.refs.inputElement) {
             // Ugly hack: Sets the caret at the end of the text
-            this.refs.inputElement.getDOMNode().value = this.state.text
+            this.refs.inputElement.value = this.state.text
         }
     }
 

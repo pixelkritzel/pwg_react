@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import { ServiceListItem } from './ServiceListItem';
+import {observer} from "mobx-react"
 import services from './services';
 
-export class ServiceList extends Component {
+@observer export class ServiceList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             services: services.getServices()
         }
-        this.servicesCallback = services.addCallback( this.updateServiceList.bind(this) );
-    }
-
-    componentWillUnmount() {
-        services.removeCallback(this.servicesCallback);
-    }
-
-    updateServiceList(newServices, action) {
-        this.setState({
-            services: newServices.concat([])
-        });
     }
 
     render() {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { observer } from 'mobx-react'
 import services from './services';
 
-export class Autocomplete extends Component {
+@observer export class Autocomplete extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,12 +87,6 @@ export class Autocomplete extends Component {
     } catch(error) {
       alert(error);
     }
-    if (newServices) {
-      this.setState({
-        services: newServices
-      });
-    }
-
   }
 
   renderList() {
