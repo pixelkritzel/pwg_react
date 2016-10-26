@@ -6,7 +6,6 @@
     "server": "./node_modules/.bin/gulp run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Timo Zöller",
   "author": "",
   "devDependencies": {
     "babel-loader": "^6.2.4",
