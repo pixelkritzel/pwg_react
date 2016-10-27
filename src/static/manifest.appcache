@@ -1,0 +1,10 @@
+CACHE MANIFEST
+
+CACHE:
+/
+/styles/style.css
+/scripts/bundle.js
+/static/appcache-nanny.js
+
+FALLBACK:
+/ /

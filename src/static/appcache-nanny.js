@@ -59,7 +59,7 @@
     root.appCacheNanny = factory(appCache, Events)
   }
 })(this, function (applicationCache, Events) {
-  var DEFAULT_MANIFEST_LOADER_PATH = '/appcache-loader.html'
+  var DEFAULT_MANIFEST_LOADER_PATH = '/static/appcache-loader.html'
   var DEFAULT_CHECK_INTERVAL = 30000
 
   var appCacheNanny = new Events()
